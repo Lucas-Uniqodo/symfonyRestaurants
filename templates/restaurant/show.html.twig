@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant
+{% endblock %}
+
+{% block body %}
+	<h1>Restaurant</h1>
+
+	<div class="row">
+		<div class="card col-lg-3 col-md-4 col-sm-6" style="width: 18rem;">
+			<img class="card-img-top" src="{{ restaurant.imageLink }}" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">{{ restaurant.name }}</h5>
+				<a href="{{ path('restaurant_edit', {'restaurantId': restaurant.restaurantId}) }}" class="btn btn-primary">Edit</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		{% for menu in restaurant.menus %}
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="card" style="width: 18rem;">
+					<div class="card-header">
+						{{ menu.title }}
+					</div>
+					<ul class="list-group list-group-flush">
+						{% for item in menu.menuitems %}
+							<li class="list-group-item">{{item.name}}
+								-
+								{{item.price}}</li>
+						</ul>
+					{% endfor %}
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+	<a href="{{ path('restaurant_index') }}">back to restaurants</a>
+
+	<a href="{{ path('restaurant_edit', {'restaurantId': restaurant.restaurantId}) }}">edit</a>
+
+	{{ include('restaurant/_delete_form.html.twig') }}
+{% endblock %}
